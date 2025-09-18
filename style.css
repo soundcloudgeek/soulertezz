@@ -1,0 +1,155 @@
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0b0054;
+  color: #333;
+  line-height: 1.8;
+}
+
+header {
+  background-color: #000000;
+  color: #dfdfe9;
+  padding: 20px 20px;
+}
+
+
+.header-content {
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+}
+
+.logo {
+  width: 100px; 
+}
+
+.logo img {
+  width: 100%; 
+  height: auto; 
+  display: block; 
+}
+
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  display: inline;
+  margin-left: 5px; 
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  nav ul {
+    text-align: center; 
+  }
+
+  nav li {
+    display: block; 
+    margin: 10px 0;
+  }
+}
+
+
+
+nav a:hover {
+  color: #13008b;
+}
+
+
+.starting,
+.family,
+.ofora,
+.post1,
+.leader1,
+.leader2,
+.leader3,
+.leader4,
+.lose,
+.unrip1,
+.unrip2,
+.ryabov,
+.owners,
+.leadership,
+.BallasJizzy1,
+.arz,
+.NightWolves,
+.famq {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 40px;
+  box-shadow: 5px 15px 0px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .navigation {
+    text-align: left; 
+    padding: 10px;
+  }
+
+  nav ul {
+    display: block; 
+  }
+
+  nav li {
+    display: block; 
+    margin: 10px 0;
+  }
+}
+ footer {
+  background-color: rgb(0, 0, 0);
+  padding: 20px;
+  text-align: center;
+}
+
+
+.gradient-button {
+  display: inline-block; 
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #055bfa, #042049);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease; 
+  line-height: 2;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(to right, #0e2a8d, #5100ff); 
+}
+
+.gradient-button:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); 
+  transform: translateY(1px); 
+}
