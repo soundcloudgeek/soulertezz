@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Состав | Soulertezz</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="preloader" id="preloader"><div class="loader"></div></div>
+<div class="progress-bar" id="progressBar"></div>
+<div class="custom-cursor" id="customCursor"></div>
+
+<header>
+  <div class="header-content">
+    <div class="logo"><img src="photo1.jpg" alt="Логотип"></div>
+    <div class="burger" id="burger"><span></span><span></span><span></span></div>
+   
+    <nav><ul id="navMenu">
+      <li><a href="index.html">История</a></li>
+      <li><a href="video.html">Видео</a></li>
+      <li><a href="https://vk.com/soulertezz" class="gradient-button" style="padding: 0.6rem 1.2rem;">ВК семьи</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main>
+  <h1 style="text-align: center; margin: 2rem 0 1rem;">Основатели и лидерки</h1>
+
+  <div class="members-grid">
+    <!-- Основатели -->
+    <div class="member-card"><h3>Andreev</h3><div class="role">👑 Основатель</div><div class="stat">Лидерка Ballas, 65 fullq</div></div>
+    <div class="member-card"><h3>Vekesov</h3><div class="role">👑 Основатель</div><div class="stat">Один из первых</div></div>
+    <div class="member-card"><h3>Ryabov</h3><div class="role">👑 Основатель</div><div class="stat">Автор истории, создатель</div></div>
+
+    <!-- Лидерки -->
+    <div class="member-card"><h3>Izana Soulertezz</h3><div class="role">Лидерка Night Wolves</div><div class="stat">130 fullq (рекорд)</div></div>
+    <div class="member-card"><h3>Warm Soulertezz</h3><div class="role">Лидерка Night Wolves</div><div class="stat">130 fullq</div></div>
+    <div class="member-card"><h3>German Soulertezz</h3><div class="role">Лидерка Night Wolves</div><div class="stat">130 fullq</div></div>
+    <div class="member-card"><h3>Jizzy Plugwalker</h3><div class="role">East Side Ballas</div><div class="stat">старт 21 → 65 gold fullq</div></div>
+    <div class="member-card"><h3>Jizzy Plugwalker (2)</h3><div class="role">East Side Ballas</div><div class="stat">старт 23 → 65, старт2 19 → 49</div></div>
+  </div>
+
+  <div class="owners" style="text-align: center; margin-top: 2rem;">
+    <h3>Достижения семьи</h3>
+    <p>Power FamCaptures: 80 территорий<br>Полный контроль гетто на нескольких лидерках</p>
+  </div>
+</main>
+
+<footer>
+  <a href="https://vk.com/traphustla" class="gradient-button">create by Ryabov</a>
+</footer>
+
+<a href="#" class="scroll-top" id="scrollTopBtn">↑</a>
+
+<script>
+  // (тот же JS, что в index.html, можно вынести в отдельный файл, но для простоты копируем)
+  window.addEventListener('load', () => { document.getElementById('preloader')?.classList.add('hide'); });
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progressBar').style.width = (winScroll / height) * 100 + '%';
+    const btn = document.getElementById('scrollTopBtn');
+    if (window.scrollY > 300) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  });
+  document.getElementById('scrollTopBtn')?.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  const burger = document.getElementById('burger');
+  const navMenu = document.getElementById('navMenu');
+  burger?.addEventListener('click', () => { burger.classList.toggle('active'); navMenu.classList.toggle('active'); });
+  document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => { burger?.classList.remove('active'); navMenu?.classList.remove('active'); }));
+  const cursor = document.getElementById('customCursor');
+  if (window.innerWidth >= 1024 && cursor) {
+    document.body.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button, .gradient-button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+  } else if (cursor) cursor.style.display = 'none';
+</script>
+<script>
+    // ========== АНИМАЦИЯ ЦИФР (СКРОЛЛ) ==========
+function animateNumbers() {
+  const fullqs = 4;   // количество полных fullq
+  const territories = 180; // примерная сумма территорий
+  const leaders = 6;   // количество лидерок
+  const duration = 1500;
+  
+  const counters = [
+    { id: 'statFullqs', target: fullqs },
+    { id: 'statTerritories', target: territories },
+    { id: 'statLeaders', target: leaders }
+  ];
+  
+  const startAnimation = (entry) => {
+    if (entry[0].isIntersecting) {
+      counters.forEach(counter => {
+        const element = document.getElementById(counter.id);
+        if (!element || element.classList.contains('animated')) return;
+        element.classList.add('animated');
+        let current = 0;
+        const step = Math.ceil(counter.target / (duration / 16));
+        const interval = setInterval(() => {
+          current += step;
+          if (current >= counter.target) {
+            element.innerText = counter.target;
+            clearInterval(interval);
+          } else {
+            element.innerText = current;
+          }
+        }, 16);
+      });
+      observer.disconnect();
+    }
+  };
+  
+  const observer = new IntersectionObserver(startAnimation, { threshold: 0.5 });
+  const statsGrid = document.querySelector('.stats-grid');
+  if (statsGrid) observer.observe(statsGrid);
+}
+
+// ========== ТАЙМЕР ОСНОВАНИЯ СЕМЬИ ==========
+function updateFamilyTimer() {
+  const startDate = new Date(2024, 3, 1); // 1 апреля 2024 (месяцы с 0)
+  const now = new Date();
+  const diff = now - startDate;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (86400000)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (3600000)) / (1000 * 60));
+  
+  const timerElement = document.getElementById('familyTimer');
+  if (timerElement) {
+    timerElement.innerHTML = `${days} дн. ${hours} ч. ${minutes} мин.`;
+  }
+}
+setInterval(updateFamilyTimer, 60000);
+updateFamilyTimer();
+
+// ========== ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ ==========
+function initThemeSwitch() {
+  const switchBtn = document.getElementById('themeSwitch');
+  if (!switchBtn) return;
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light');
+    switchBtn.classList.add('active');
+  }
+  switchBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    switchBtn.classList.toggle('active');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  });
+}
+
+// ========== SCROLL REVEAL (появление элементов) ==========
+function initScrollReveal() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+  reveals.forEach(el => observer.observe(el));
+}
+
+// Запуск всех новых функций
+initThemeSwitch();
+initScrollReveal();
+animateNumbers();
+</script>
+
+<script>
+    window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const bg = document.querySelector('.parallax-bg');
+  if (bg) bg.style.transform = `translateY(${scrolled * 0.2}px)`;
+});
+</script>
+
+<!-- Three.js библиотека -->
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+    }
+  }
+</script>
+
+<script type="module">
+  import * as THREE from 'three';
+
+  // --- Инициализация сцены, камеры, рендерера ---
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x050510); // цвет, совпадает с фоном body
+  scene.fog = new THREE.FogExp2(0x050510, 0.0008); // лёгкий туман
+
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 15);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x050510, 1); // полное перекрытие фона
+
+  const canvas = renderer.domElement;
+  canvas.id = 'bg-canvas';
+  document.body.prepend(canvas); // размещаем под контентом
+
+  // --- Частицы звёзд (основной массив) ---
+  const starsGeometry = new THREE.BufferGeometry();
+  const starsCount = 2000;
+  const starsPositions = new Float32Array(starsCount * 3);
+  
+  for (let i = 0; i < starsCount; i++) {
+    // Распределяем в кубе [-200, 200] по X и Y, а по Z от -50 до 50
+    starsPositions[i*3] = (Math.random() - 0.5) * 400;
+    starsPositions[i*3+1] = (Math.random() - 0.5) * 200;
+    starsPositions[i*3+2] = (Math.random() - 0.5) * 100 - 50;
+  }
+  starsGeometry.setAttribute('position', new THREE.BufferAttribute(starsPositions, 3));
+  
+  // Материал звёзд (размер + цвет)
+  const starsMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.25,
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending
+  });
+  const stars = new THREE.Points(starsGeometry, starsMaterial);
+  scene.add(stars);
+
+  // --- Доп. слой крупных "дальних" звёзд с мерцанием ---
+  const bigStarsGeometry = new THREE.BufferGeometry();
+  const bigStarsCount = 500;
+  const bigStarsPositions = new Float32Array(bigStarsCount * 3);
+  for (let i = 0; i < bigStarsCount; i++) {
+    bigStarsPositions[i*3] = (Math.random() - 0.5) * 500;
+    bigStarsPositions[i*3+1] = (Math.random() - 0.5) * 300;
+    bigStarsPositions[i*3+2] = (Math.random() - 0.5) * 150 - 75;
+  }
+  bigStarsGeometry.setAttribute('position', new THREE.BufferAttribute(bigStarsPositions, 3));
+  const bigStarsMaterial = new THREE.PointsMaterial({
+    color: 0xaaccff,
+    size: 0.45,
+    transparent: true,
+    opacity: 0.6,
+    blending: THREE.AdditiveBlending
+  });
+  const bigStars = new THREE.Points(bigStarsGeometry, bigStarsMaterial);
+  scene.add(bigStars);
+
+  // --- Туманности (несколько полупрозрачных сфер с текстурой шума или просто glow) ---
+  const nebulaTexture = (color) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 32, 32);
+    ctx.globalCompositeOperation = 'destination-out';
+    for (let i = 0; i < 200; i++) {
+      ctx.fillStyle = `rgba(0,0,0,${Math.random() * 0.5})`;
+      ctx.fillRect(Math.random() * 32, Math.random() * 32, 2, 2);
+    }
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    return texture;
+  };
+
+  const nebulaColors = ['#3b82f6', '#8b5cf6', '#ec489a'];
+  for (let i = 0; i < 5; i++) {
+    const geometry = new THREE.SphereGeometry(3 + Math.random() * 5, 32, 32);
+    const material = new THREE.MeshBasicMaterial({
+      color: nebulaColors[Math.floor(Math.random() * nebulaColors.length)],
+      transparent: true,
+      opacity: 0.03,
+      side: THREE.BackSide,
+      depthWrite: false
+    });
+    const nebula = new THREE.Mesh(geometry, material);
+    nebula.position.set(
+      (Math.random() - 0.5) * 40,
+      (Math.random() - 0.5) * 20,
+      (Math.random() - 0.5) * 40 - 30
+    );
+    scene.add(nebula);
+  }
+
+  // --- Анимация: вращение и движение камеры вперёд-назад (эффект полёта) ---
+  let time = 0;
+  let scrollOffset = 0;
+  
+  // Параллакс при движении мыши
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetRotationX = 0;
+  let targetRotationY = 0;
+  
+  window.addEventListener('mousemove', (event) => {
+    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+    targetRotationY = mouseX * 0.0005;
+    targetRotationX = mouseY * 0.0003;
+  });
+  
+  // Скролл влияет на "скорость полёта"
+  window.addEventListener('scroll', () => {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = window.scrollY / maxScroll;
+    scrollOffset = percent * 30; // от 0 до 30
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.005;
+    
+    // Движение звёзд к камере (имитация полёта)
+    // Базовое движение + влияние скролла
+    const speed = 0.2 + scrollOffset * 0.05;
+    stars.rotation.y += 0.0005;
+    stars.rotation.x += 0.0003;
+    bigStars.rotation.y -= 0.0002;
+    
+    // Плавное смещение камеры по X/Y от мыши
+    camera.position.x += (targetRotationY * 2 - camera.position.x) * 0.05;
+    camera.position.y += (targetRotationX * 1.5 - camera.position.y) * 0.05;
+    camera.position.z = 15 + Math.sin(time * 0.5) * 0.3;
+    
+    camera.lookAt(0, 0, 0);
+    
+    renderer.render(scene, camera);
+  }
+  
+  animate();
+
+  // --- Адаптация под изменение размера окна ---
+  window.addEventListener('resize', onWindowResize, false);
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+  
+  // Маленькие звёздочки мерцают (опционально через смену opacity)
+  setInterval(() => {
+    starsMaterial.opacity = 0.6 + Math.random() * 0.3;
+    bigStarsMaterial.opacity = 0.4 + Math.random() * 0.4;
+  }, 800);
+</script>
+<script type="module">
+  import * as THREE from 'three';
+  import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
+
+  // Находим контейнер для 3D (создадим поверх контента, но с высоким z-index?)
+  const heroSection = document.querySelector('h1');
+  if (heroSection) {
+    // Создаём canvas для 3D-модели
+    const modelContainer = document.createElement('div');
+    modelContainer.style.position = 'relative';
+    modelContainer.style.height = '300px';
+    modelContainer.style.width = '100%';
+    modelContainer.style.margin = '-50px auto 0';
+    modelContainer.style.pointerEvents = 'none';
+    heroSection.parentNode.insertBefore(modelContainer, heroSection.nextSibling);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, modelContainer.clientWidth / modelContainer.clientHeight, 0.1, 1000);
+    camera.position.set(0, 2, 8);
+    camera.lookAt(0, 0, 0);
+    
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+    renderer.setClearColor(0x000000, 0);
+    modelContainer.appendChild(renderer.domElement);
+    
+    // Неоновый TorusKnot
+    const geometry = new THREE.TorusKnotGeometry(1.2, 0.3, 200, 32, 3, 4);
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x3b82f6,
+      emissive: 0x1e3a8a,
+      emissiveIntensity: 0.8,
+      metalness: 0.8,
+      roughness: 0.2,
+      transparent: true,
+      opacity: 0.95
+    });
+    const knot = new THREE.Mesh(geometry, material);
+    scene.add(knot);
+    
+    // Добавляем парящие частицы вокруг
+    const particleCount = 600;
+    const particlesGeometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      const radius = 2.2;
+      positions[i*3] = (Math.random() - 0.5) * radius * 2;
+      positions[i*3+1] = (Math.random() - 0.5) * radius * 2;
+      positions[i*3+2] = (Math.random() - 0.5) * radius * 2;
+    }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particlesMaterial = new THREE.PointsMaterial({
+      color: 0x8b5cf6,
+      size: 0.05,
+      transparent: true,
+      blending: THREE.AdditiveBlending
+    });
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+    
+    // Вращающийся луч (дополнительный круг)
+    const ringGeometry = new THREE.TorusGeometry(1.5, 0.05, 64, 200);
+    const ringMaterial = new THREE.MeshStandardMaterial({ color: 0x3b82f6, emissive: 0x3b82f6, emissiveIntensity: 0.5 });
+    const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+    scene.add(ring);
+    
+    // Освещение
+    const ambientLight = new THREE.AmbientLight(0x404060);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0x3b82f6, 1, 20);
+    pointLight.position.set(2, 3, 4);
+    scene.add(pointLight);
+    const backLight = new THREE.PointLight(0x8b5cf6, 0.5);
+    backLight.position.set(-2, 1, -3);
+    scene.add(backLight);
+    
+    // Анимация
+    let time = 0;
+    function animateModel() {
+      requestAnimationFrame(animateModel);
+      time += 0.008;
+      knot.rotation.x = Math.sin(time * 0.5) * 0.3;
+      knot.rotation.y += 0.01;
+      knot.rotation.z = Math.cos(time * 0.3) * 0.2;
+      ring.rotation.x = Math.sin(time * 0.7) * 0.2;
+      ring.rotation.y += 0.005;
+      ring.rotation.z = Math.cos(time * 0.4) * 0.1;
+      particles.rotation.y += 0.002;
+      particles.rotation.x += 0.001;
+      
+      // Пульсация интенсивности свечения
+      const intensity = 0.6 + Math.sin(time * 3) * 0.3;
+      knot.material.emissiveIntensity = intensity;
+      ring.material.emissiveIntensity = intensity * 0.7;
+      
+      renderer.render(scene, camera);
+    }
+    animateModel();
+    
+    // Адаптация размера
+    window.addEventListener('resize', () => {
+      const width = modelContainer.clientWidth;
+      const height = modelContainer.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+    
+    // Реакция на движение мыши (параллакс)
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      const mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+      camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+      camera.position.y += (-mouseY * 0.3 - camera.position.y) * 0.05;
+      camera.lookAt(0, 0, 0);
+    });
+  }
+</script>
+</body>
+</html>
